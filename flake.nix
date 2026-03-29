@@ -47,7 +47,7 @@
         };
 
       nixosModules = {
-        gastown = import ./nix/gastown.nix {
+        deployment = import ./nix/gastown.nix {
           flake = self;
           system = system;
         };
