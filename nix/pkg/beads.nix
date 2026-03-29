@@ -1,9 +1,15 @@
 { flake, pkgs, ...}:
 let
   beadsSrc = flake.inputs.beads;
-  beadsBase = pkgs.callPackage (beadsSrc + "/default.nix") { inherit pkgs; self = beadsSrc; };
+  beadsBase = pkgs.callPackage (beadsSrc + "/default.nix") {
+    inherit pkgs;
+    self = beadsSrc;
+    buildGoModule = pkgs.buildGo126Module;
+  };
   beadsBaseFixed = beadsBase.overrideAttrs (_old: {
-    vendorHash = "sha256-OL6QGf4xSMpEbmU+41pFdO0Rrs3H162T3pdiW9UfWR0=";
+    nativeBuildInputs = (_old.nativeBuildInputs or []) ++ [ pkgs.pkg-config ];
+    buildInputs = (_old.buildInputs or []) ++ [ pkgs.icu ];
+    vendorHash = "sha256-GYPfvsI8eNJbdzrbO7YnMkN2Yt6KZNB7w/2SJD2WdFY=";
   });
   beads = pkgs.stdenv.mkDerivation {
     pname = "beads";

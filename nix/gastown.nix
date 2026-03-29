@@ -1,4 +1,4 @@
-{ flake, system, domain ? null, ...}: { config, pkgs, ...}:
+{ flake, system, domain ? null, ...}: { config, pkgs, lib, ...}:
 let
   serviceUser = "gastown";
   serviceGroup = "gastown";
@@ -54,8 +54,9 @@ in
   users.groups.${serviceGroup} = {};
   users.users.${serviceUser} = {
     isNormalUser = true;
+    isSystemUser = lib.mkForce false;
     group = serviceGroup;
-    home = "/home/gastown";
+    home = lib.mkForce "/home/gastown";
     createHome = true;
     extraGroups = [];
   };

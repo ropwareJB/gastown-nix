@@ -33,5 +33,7 @@ EOF
     '';
 
   proxyVendor = true;
-  vendorHash = "sha256-2JKhctfOQw4EO7aWDk5eEto94EGzOAcc5qF5S1EKnXY=";
+  go = pkgs.go_1_26;
+  doCheck = false;
+  vendorHash = "sha256-3YC2IeAXJKQmaB2fBjezHABJwb7jgLQ26o7LKAsUpow=";
 })
